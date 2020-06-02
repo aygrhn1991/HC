@@ -1,0 +1,118 @@
+﻿:root {
+    --color: #0e90d2;
+}
+
+.content-wrapper {
+    padding: 0 10px;
+}
+
+.layui-laypage-count {
+    background-color: transparent !important;
+    color: var(--color) !important;
+}
+
+.layui-laypage .layui-laypage-curr .layui-laypage-em {
+    background-color: var(--color);
+}
+
+#page {
+    text-align: center;
+}
+
+.mybox {
+    text-align: center;
+    margin: 10px 0;
+}
+
+    .mybox i {
+        font-size: 30px;
+    }
+
+    .mybox > a {
+        display: block;
+        padding: 5px 10px;
+        border: 1px solid #eee;
+        border-radius: 15px;
+    }
+
+        .mybox > a > div {
+            font-size: 12px;
+        }
+
+.myText {
+    text-align: center;
+    margin: 10px 0;
+}
+
+    .myText > a {
+        display: block;
+        padding: 5px 0;
+        border: 1px solid #eee;
+        border-radius: 15px;
+    }
+
+        .myText > a > div {
+            width: 40px;
+            margin: 0 auto;
+        }
+
+.checkbox {
+    color: var(--color);
+}
+
+.am-nav-tabs {
+    border-bottom: none !important;
+}
+
+    .am-nav-tabs > li {
+        width: 33%;
+        text-align: center;
+    }
+
+        .am-nav-tabs > li.am-active > a, .am-nav-tabs > li.am-active > a:hover, .am-nav-tabs > li.am-active > a:focus {
+            border-color: transparent !important;
+            font-weight: bold;
+        }
+
+.news-type {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+    .news-type a {
+        color: #fff;
+    }
+
+.am-list .am-list-item-dated a {
+    padding-right: 100px !important;
+}
+
+.news-subcontent div {
+    line-height: 24px !important;
+    text-indent: 2em;
+}
+
+    .news-subcontent div:last-child {
+        padding-bottom: 10px;
+    }
+
+.am-titlebar {
+    margin-top: 10px !important;
+}
+
+.am-list-news-default .am-list > li:first-child {
+    border: none !important;
+}
+
+.am-list-news-bd {
+    margin: 0 5px !important;
+}
+.am-panel-default{
+    border-color:aliceblue !important;
+}
+.am-panel-bd {
+    border-color: aliceblue !important;
+}
+.am-panel-default > .am-panel-hd {
+    background-color: aliceblue !important;
+}

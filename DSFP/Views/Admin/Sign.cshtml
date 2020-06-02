@@ -1,0 +1,287 @@
+﻿
+@{
+    ViewBag.Title = "Sign";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+<style>
+    .step-table {
+        width: 100%;
+        line-height: 40px;
+        font-size: 16px;
+    }
+
+        .step-table tr > td:first-child {
+            text-align: right;
+            font-weight: bold;
+            width: 50%;
+        }
+
+        .step-table tr > td:last-child {
+            text-align: left;
+            width: 50%;
+        }
+</style>
+<div ng-controller="SignCtrl">
+    <div class="content-wrapper ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>签约管理</h5>
+            <div class="ibox-tools refresh">
+                <button type="button" class="btn btn-primary btn-sm" ng-click="refresh()"><i class="fa fa-refresh"></i></button>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <form class="form-inline toolbar">
+                <div class="form-group">
+                    <label class="control-label second-key-long">年份：</label>
+                    <select class="form-control input-sm" ng-options="x for x in year" ng-model="search.number1"></select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label second-key-long">名称：</label>
+                    <input type="text" placeholder="请输入名称关键字" class="form-control input-sm" ng-model="search.string1">
+                </div>
+                <button class="btn btn-primary btn-sm toolbar-btn" ng-click="get()">搜索</button>
+                <button class="btn btn-primary btn-sm toolbar-btn" ng-click="reset()">重置</button>
+                <button class="btn btn-primary btn-sm toolbar-btn toolbar-btn-right" ng-click="add_show()">添加</button>
+            </form>
+            <table class="layui-table">
+                <colgroup>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col width="150">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>签约编号</th>
+                        <th>签约名称</th>
+                        <th>扶贫对象</th>
+                        <th>签约时间</th>
+                        <th>签约期限</th>
+                        <th>水稻产量(kg)</th>
+                        <th>签约单价(元)</th>
+                        <th>总计(元)</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="d in data">
+                        <td>{{d.id}}</td>
+                        <td>{{d.number}}</td>
+                        <td>{{d.name}}</td>
+                        <td>{{d.poorname}}</td>
+                        <td>{{d.time|date:'yyyy-MM-dd'}}</td>
+                        <td>{{d.datestart|date:'yyyy-MM-dd'}} - {{d.dateend|date:'yyyy-MM-dd'}}</td>
+                        <td>{{d.weight}}</td>
+                        <td>{{d.price}}</td>
+                        <td>{{d.weight*d.price|number:2}}</td>
+                        <td>
+                            <i class="fa fa-file icon-table icon-edit3" ng-click="preview(d)" title="预览"></i>
+                            <i class="fa fa-edit icon-table icon-edit2" ng-click="edit_show(d)" title="修改"></i>
+                            <i class="fa fa-trash icon-table icon-delete" ng-click="delete(d)" title="删除"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="page"></div>
+        </div>
+    </div>
+    <div id="modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div id="wizard" class="wizard clearfix">
+                        <div class="steps clearfix">
+                            <ul>
+                                <li class="{{currentStep==1?'current':currentStep==2?'done':currentStep==3?'done':''}}"><a><span class="number">1.</span>扶贫对象</a></li>
+                                <li class="{{currentStep==1?'disabled':currentStep==2?'current':currentStep==3?'done':''}}"><a><span class="number">2.</span>签约信息</a></li>
+                                <li class="{{currentStep==1?'disabled':currentStep==2?'disabled':currentStep==3?'current':''}}"><a><span class="number">3.</span>确认信息</a></li>
+                            </ul>
+                        </div>
+                        <div class="content clearfix" style="height:390px;">
+                            <div class="step-content body" style="width:100%;" ng-style="{'display':currentStep==1?'block':'none'}">
+                                <div class="text-center m-t-md">
+                                    <form class="form-horizontal">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" ng-model="search.string2"><span class="input-group-btn">
+                                                <button type="button" class="btn btn-primary" ng-click="getPoor()">搜索</button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                    <div class="container-fluid" style="height:250px;overflow-y:auto;">
+                                        <div class="row" style="margin-top:15px;cursor:pointer;">
+                                            <div class="col-xs-6" ng-repeat="p in poor" ng-click="selectPoor(p)">
+                                                <div class="contact-box" ng-style="{'background-color':p.id==model.poorid?'#1ab394':'','color':p.id==model.poorid?'#fff':'',}">
+                                                    <div class="col-sm-4" style="padding:0;">
+                                                        <img alt="image" class="img-circle m-t-xs img-responsive" src="/Image/head.jpg">
+                                                    </div>
+                                                    <div class="col-sm-8" style="margin-top:8px;">
+                                                        <h3><strong>{{p.name}}</strong></h3>
+                                                        <p><i class="fa fa-map-marker"></i>&nbsp;{{p.xzqhname}}</p>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="step-content body" ng-style="{'display':currentStep==2?'block':'none'}">
+                                <div class="text-center m-t-md">
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">签约编号</label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control" ng-model="model.number">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">签约名称</label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control" ng-model="model.name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">签约时间</label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control" id="time1">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">签约期限</label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control" id="time2">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">水稻产量(kg)</label>
+                                            <div class="col-sm-9">
+                                                <input type="number" class="form-control" ng-model="model.weight">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">签约单价(元)</label>
+                                            <div class="col-sm-9">
+                                                <input type="number" class="form-control" ng-model="model.price">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">总计(元)</label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control" value="{{(model.weight!=null&&model.price!=null)?model.weight*model.price:0|number:2}}" disabled>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="row">
+                                        <div class="col-xs-4" ng-repeat="p in poor">{{poor.name}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="step-content body" ng-style="{'display':currentStep==3?'block':'none'}">
+                                <div class="text-center m-t-md">
+                                    <table class="step-table">
+                                        <tr>
+                                            <td>签约编号：</td>
+                                            <td>{{model.number}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>签约名称：</td>
+                                            <td>{{model.name}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>扶贫对象：</td>
+                                            <td>{{model.poorname}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>签约时间：</td>
+                                            <td>{{model.time}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>签约期限：</td>
+                                            <td>{{model.datestart}} - {{model.dateend}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>水稻产量(kg)：</td>
+                                            <td>{{model.weight}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>签约单价(元)：</td>
+                                            <td>{{model.price}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>总计(元)：</td>
+                                            <td>{{(model.weight!=null&&model.price!=null)?model.weight*model.price:0|number:2}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div><div class="actions clearfix">
+                            <ul>
+                                <li ng-click="step(-1)" ng-if="currentStep>1"><a>上一步</a></li>
+                                <li ng-click="step(1)" ng-if="currentStep<3"><a>下一步</a></li>
+                                <li ng-if="currentStep==3&&model.id==null" ng-click="add()"><a>完成</a></li>
+                                <li ng-if="currentStep==3&&model.id!=null" ng-click="edit()"><a>完成</a></li>
+                                <li data-dismiss="modal"><a>取消</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-preview" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <table class="step-table">
+                        <tr>
+                            <td>签约编号：</td>
+                            <td>{{model.number}}</td>
+                        </tr>
+                        <tr>
+                            <td>签约名称：</td>
+                            <td>{{model.name}}</td>
+                        </tr>
+                        <tr>
+                            <td>扶贫对象：</td>
+                            <td>{{model.poorname}}</td>
+                        </tr>
+                        <tr>
+                            <td>签约时间：</td>
+                            <td>{{model.time}}</td>
+                        </tr>
+                        <tr>
+                            <td>签约期限：</td>
+                            <td>{{model.datestart}} - {{model.dateend}}</td>
+                        </tr>
+                        <tr>
+                            <td>水稻产量(kg)：</td>
+                            <td>{{model.weight}}</td>
+                        </tr>
+                        <tr>
+                            <td>签约单价(元)：</td>
+                            <td>{{model.price}}</td>
+                        </tr>
+                        <tr>
+                            <td>总计(元)：</td>
+                            <td>{{(model.weight!=null&&model.price!=null)?model.weight*model.price:0|number:2}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

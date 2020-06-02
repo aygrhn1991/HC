@@ -1,0 +1,60 @@
+﻿
+@{
+    Layout = null;
+}
+
+<header class="am-header am-header-default">
+    <h1 class="am-header-title">
+        <a>个人中心</a>
+    </h1>
+</header>
+<div class="am-intro am-cf am-intro-default">
+    <div class="am-g am-intro-bd" style="border-bottom:1px solid #eee;">
+        <div class="am-intro-left am-u-sm-3"><img src="~/Image/head.jpg" /></div>
+        <div class="am-intro-right am-u-sm-9">
+            <div style="font-size:18px;">{{data.name}}</div>
+            <div>{{data.phone}}</div>
+        </div>
+    </div>
+</div>
+<div class="am-g">
+    <div class="am-u-sm-4 mybox">
+        <a href="#/myrank/1">
+            <i class="am-icon-eye"></i>
+            <div>浏览量</div>
+        </a>
+    </div>
+    <div class="am-u-sm-4 mybox">
+        <a href="#/myrank/2">
+            <i class="am-icon-question-circle"></i>
+            <div>提问数</div>
+        </a>
+    </div>
+    <div class="am-u-sm-4 mybox">
+        <a href="#/myrank/3">
+            <i class="am-icon-clock-o"></i>
+            <div>浏览时长</div>
+        </a>
+    </div>
+    <div class="am-u-sm-4 mybox">
+        <a href="#/myxzqh">
+            <i class="am-icon-flag"></i>
+            <div>关注村镇</div>
+        </a>
+    </div>
+    <div class="am-u-sm-4 mybox">
+        <a href="#/myquestion">
+            <i class="am-icon-comments"></i>
+            <div>我的提问</div>
+        </a>
+    </div>
+    @for (int i = 0; i < 4; i++)
+    {
+        <div class="am-u-sm-4 mybox">
+            <a>
+                <i class="am-icon-spinner"></i>
+                <div>功能未开放</div>
+            </a>
+        </div>
+    }
+</div>

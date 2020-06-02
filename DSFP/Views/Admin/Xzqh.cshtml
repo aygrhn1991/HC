@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "Xzqh";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<div ng-controller="XzqhCtrl">
+    <div class="content-wrapper ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>贫困村</h5>
+            <div class="ibox-tools refresh">
+                <button type="button" class="btn btn-primary btn-sm" ng-click="refresh()"><i class="fa fa-refresh"></i></button>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <form class="form-inline toolbar">
+                <div class="form-group">
+                    <label class="control-label first-key-short">镇：</label>
+                    <select class="form-control input-sm" ng-options="x.code as x.name for x in xzqh_search" ng-model="search.string1"></select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label second-key-long">名称：</label>
+                    <input type="text" placeholder="请输入名称关键字" class="form-control input-sm" ng-model="search.string2">
+                </div>
+                <button class="btn btn-primary btn-sm toolbar-btn" ng-click="get()">搜索</button>
+                <button class="btn btn-primary btn-sm toolbar-btn" ng-click="reset()">重置</button>
+            </form>
+            <table class="layui-table">
+                <colgroup>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col width="150">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>行政区划编码</th>
+                        <th>经度</th>
+                        <th>纬度</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="d in data">
+                        <td>{{d.name}}</td>
+                        <td>{{d.code}}</td>
+                        <td>{{d.x}}</td>
+                        <td>{{d.y}}</td>
+                        <td>
+                            <i class="fa fa-users icon-table icon-edit2" ng-click="preview(d)" title="贫困户"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="page"></div>
+        </div>
+    </div>
+    <div id="modal-preview" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <table class="layui-table">
+                        <colgroup>
+                            <col>
+                            <col>
+                            <col>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>姓名</th>
+                                <th>家庭人口</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="d in poor">
+                                <td>{{d.id}}</td>
+                                <td>{{d.name}}</td>
+                                <td>{{d.population}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

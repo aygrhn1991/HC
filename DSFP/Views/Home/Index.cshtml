@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Home.cshtml";
+}
+<div ng-controller="IndexCtrl">
+    <div ng-view></div>
+    <div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default">
+        <ul class="am-navbar-nav am-cf am-avg-sm-4">
+            <li>
+                <a href="#/activity">
+                    <span class="am-icon-edit"></span>
+                    <span class="am-navbar-label">电商扶贫</span>
+                </a>
+            </li>
+            <li>
+                <a href="#/sign">
+                    <span class="am-icon-calendar-check-o"></span>
+                    <span class="am-navbar-label">签约扶贫</span>
+                </a>
+            </li>
+            <li>
+                <a href="#/my">
+                    <span class="am-icon-user"></span>
+                    <span class="am-navbar-label">我的</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+

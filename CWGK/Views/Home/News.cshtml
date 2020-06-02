@@ -1,0 +1,67 @@
+﻿
+@{
+    Layout = null;
+}
+<header class="am-header am-header-default">
+    <div class="am-header-left am-header-nav" ng-click="back()">
+        <a>
+            <i class="am-header-icon am-icon-chevron-left"></i>
+        </a>
+    </div>
+    <h1 class="am-header-title">
+        <a>新闻列表</a>
+    </h1>
+</header>
+<div class="am-list-news am-list-news-default">
+    <div class="am-titlebar am-titlebar-default">
+        <h2 class="am-titlebar-title">{{xzqhName}}&nbsp;>&nbsp;<small>{{typeName}}</small></h2>
+    </div>
+    <div class="am-list-news-bd" ng-if="xzqh=='0'&&type=='1'">
+        <ul class="am-list">
+            <li class="am-g am-list-item-dated" ng-repeat="d in dataZwgk">
+                <a href="#/newsdetailspider/1/{{d.id}}" class="am-list-item-hd ">{{d.title}}</a>
+                <span class="am-list-date">{{d.time}}</span>
+            </li>
+        </ul>
+    </div>
+    <div class="am-list-news-bd" ng-if="xzqh=='0'&&type=='2'">
+        <ul class="am-list">
+            <li class="am-g news-subcontent" ng-repeat="d in dataBjtj">
+                <a class="am-list-item-hd">{{d.ORG_NAME}}</a>
+                <div class="am-list-item-text">事项总数：{{d.TOTALNUM}}</div>
+                <div class="am-list-item-text">已入驻实体大厅事项数：{{d.INHALLNUM}}</div>
+                <div class="am-list-item-text">入驻比例：{{d.INHALLRATE}}</div>
+                <div class="am-list-item-text">网上可办数量：{{d.ISONLINENUM}}</div>
+                <div class="am-list-item-text">网上可办率：{{d.ISONLINE_PER}}</div>
+            </li>
+        </ul>
+    </div>
+    <div class="am-list-news-bd" ng-if="xzqh=='0'&&type=='3'">
+        <ul class="am-list">
+            <li class="am-g news-subcontent" ng-repeat="d in dataBjgs">
+                <a class="am-list-item-hd ">{{d.APPLY_SUBJECT}}</a>
+                <div class="am-list-item-text">办件编号：{{d.RECEIVE_NUMBER}}</div>
+                <div class="am-list-item-text">受理部门：{{d.ORG_NAME}}</div>
+                <div class="am-list-item-text">申请日期：{{d.FINISH_TIME}}</div>
+                <div class="am-list-item-text">办理状态：{{d.STATE}}</div>
+            </li>
+        </ul>
+    </div>
+    <div class="am-list-news-bd" ng-if="xzqh=='0'&&type=='4'">
+        <ul class="am-list">
+            <li class="am-g am-list-item-dated" ng-repeat="d in dataBslc">
+                <a href="#/newsdetailspider/4/{{d.id}}" class="am-list-item-hd ">{{d.title}}</a>
+                <span class="am-list-date">{{d.time}}</span>
+            </li>
+        </ul>
+    </div>
+    <div class="am-list-news-bd" ng-if="xzqh!='0'">
+        <ul class="am-list">
+            <li class="am-g am-list-item-dated" ng-repeat="d in data">
+                <a href="#/newsdetail/{{d.id}}" class="am-list-item-hd ">{{d.title}}</a>
+                <span class="am-list-date">{{d.time|date:'yyyy-MM-dd'}}</span>
+            </li>
+        </ul>
+    </div>
+    <div id="page"></div>
+</div>

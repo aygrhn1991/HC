@@ -1,0 +1,57 @@
+﻿
+@{
+    Layout = null;
+}
+
+<header class="am-header am-header-default">
+    <div class="am-header-left am-header-nav" ng-click="back()">
+        <a>
+            <i class="am-header-icon am-icon-chevron-left"></i>
+        </a>
+    </div>
+    <h1 class="am-header-title">
+        <a>贫困村</a>
+    </h1>
+</header>
+<div class="content-wrapper">
+    <div class="am-list-news am-list-news-default">
+        <div class="am-titlebar am-titlebar-default">
+            <h2 class="am-titlebar-title">贫困村</h2>
+        </div>
+        <div class="am-input-group" style="margin-bottom:10px;">
+            <select class="am-form-field" ng-options="x.code as x.name for x in xzqh_search" ng-model="search.string1"></select>
+            <span class="am-input-group-btn">
+                <button class="am-btn am-btn-primary" ng-click="get()">搜索</button>
+            </span>
+        </div>
+        <div class="am-panel-group" id="accordion">
+            <div class="am-panel am-panel-default" ng-repeat="d in data">
+                <div class="am-panel-hd" data-am-collapse="{parent: '#accordion', target: '#do-not-say-{{$index}}'}" ng-click="preview(d)">
+                    <h4 class="am-panel-title">
+                        {{d.name}}
+                    </h4>
+                </div>
+                <div id="do-not-say-{{$index}}" class="am-panel-collapse am-collapse" ng-class="{'am-in':$index==0}">
+                    <div class="am-panel-bd">
+                        <p><strong>行政区划编码：</strong>{{d.code}}</p>
+                        <p><strong>经度	：</strong>{{d.x}}</p>
+                        <p><strong>纬度：</strong>{{d.y}}</p>
+                        <table class="am-table">
+                            <tr>
+                                <th>ID</th>
+                                <th>姓名</th>
+                                <th>人口</th>
+                            </tr>
+                            <tr ng-repeat="p in d.poor">
+                                <td>{{p.id}}</td>
+                                <td>{{p.name}}</td>
+                                <td>{{p.population}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="page"></div>
+    </div>
+</div>

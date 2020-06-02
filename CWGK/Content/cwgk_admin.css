@@ -1,0 +1,79 @@
+﻿.toolbar select {
+    width: 150px !important;
+}
+
+.content-wrapper {
+    padding: 20px;
+}
+
+.layui-laypage-count {
+    background-color: transparent !important;
+}
+
+#page {
+    text-align: right;
+}
+
+.refresh {
+    top: -7px;
+}
+
+    .refresh button {
+        margin-bottom: 0 !important;
+    }
+
+.first-key-short {
+    width: 50px;
+}
+
+.second-key-long {
+    width: 80px;
+    text-align: right;
+}
+
+.toolbar-btn {
+    margin-bottom: 0 !important;
+}
+
+.toolbar-btn-right {
+    float: right;
+}
+
+.icon-table {
+    color: #1ab394;
+    font-size: 18px;
+    margin-right: 5px;
+    cursor: pointer;
+    width: 18px;
+}
+
+.icon-edit1 {
+}
+
+.icon-edit2 {
+    position: relative;
+    top: 2px;
+}
+
+.icon-edit3 {
+    font-size: 14px;
+}
+
+.icon-delete {
+    color: red;
+}
+
+.form-control {
+    padding: 4px 12px !important;
+}
+
+.modal textarea {
+    resize: none;
+}
+
+.dot {
+    width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

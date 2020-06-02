@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "网格员账号";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+<div ng-controller="UserCtrl">
+    <div class="content-wrapper ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>网格员账号</h5>
+            <div class="ibox-tools refresh">
+                <button type="button" class="btn btn-primary btn-sm" ng-click="refresh()"><i class="fa fa-refresh"></i></button>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <form class="form-inline toolbar">
+                <div class="form-group">
+                    <label class="control-label second-key-long">姓名：</label>
+                    <input type="text" placeholder="请输入姓名关键字" class="form-control input-sm" ng-model="search.string1">
+                </div>
+                <button class="btn btn-primary btn-sm toolbar-btn" ng-click="get()">搜索</button>
+                <button class="btn btn-primary btn-sm toolbar-btn" ng-click="reset()">重置</button>
+            </form>
+            <table class="layui-table">
+                <colgroup>
+                    <col>
+                    <col>
+                    <col>
+                    <col width="150">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>姓名</th>
+                        <th>电话</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="d in data">
+                        <td>{{d.id}}</td>
+                        <td>{{d.name}}</td>
+                        <td>{{d.phone}}</td>
+                        <td>
+                            <i class="fa fa-edit icon-table icon-edit2" ng-click="edit_xzqh_show(d)" title="村镇绑定"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="page"></div>
+        </div>
+    </div>
+    <div id="modal-xzqh" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div ng-repeat="x in xzqh" ng-click="check(x)" ng-class="{'col-xs-12':x.code.length==9,'col-xs-4':x.code.length==15}" style="line-height:30px;cursor:pointer;">
+                            <i class="fa {{x.select?'fa-check-square-o':'fa-square-o'}}" ng-style="{'margin-left':x.code.length==15?'10px':'0px'}"></i>
+                            <span ng-if="x.code.length==9">【{{x.name}}】</span>
+                            <span ng-if="x.code.length==15" style="margin-left:10px;">{{x.name}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary btn-sm" data-dismiss="modal">取消</button>
+                    <button class="btn btn-primary btn-sm" ng-click="edit_xzqh()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

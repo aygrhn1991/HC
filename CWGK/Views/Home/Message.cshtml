@@ -1,0 +1,26 @@
+﻿
+@{
+    Layout = null;
+}
+
+<header class="am-header am-header-default">
+    <h1 class="am-header-title">
+        <a>消息列表</a>
+    </h1>
+</header>
+<div style="margin-top: 50%;text-align: center;color: #999;" ng-if="message.count==0">暂无最新消息</div>
+<div class="am-list-news am-list-news-default" ng-if="message.count!=0">
+    <div class="am-titlebar am-titlebar-default">
+        <h2 class="am-titlebar-title">最新消息</h2>
+    </div>
+    <div class="am-list-news-bd">
+        <ul class="am-list">
+            <li class="am-g am-list-item-dated" ng-repeat="m in message.data">
+                <a class="am-list-item-hd ">{{m.content}}</a>
+                <span class="am-list-date">{{m.time|date:'yyyy-MM-dd'}}</span>
+            </li>
+        </ul>
+        <button class="am-btn am-btn-primary am-btn-block" ng-click="read()">全部标记已读</button>
+    </div>
+    <div id="page"></div>
+</div>

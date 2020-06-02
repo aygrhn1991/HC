@@ -1,0 +1,41 @@
+﻿
+@{
+    Layout = null;
+}
+
+<header class="am-header am-header-default">
+    <div class="am-header-left am-header-nav" ng-click="back()">
+        <a>
+            <i class="am-header-icon am-icon-chevron-left"></i>
+        </a>
+    </div>
+    <h1 class="am-header-title">
+        <a>扶贫对象</a>
+    </h1>
+</header>
+<div class="content-wrapper">
+    <div class="am-list-news am-list-news-default">
+        <div class="am-titlebar am-titlebar-default">
+            <h2 class="am-titlebar-title">扶贫对象</h2>
+        </div>
+        <div class="am-input-group" style="margin-bottom:10px;">
+            <select class="am-form-field" ng-options="x.code as x.name for x in xzqh_search" ng-model="search.string1"></select>
+            <span class="am-input-group-btn">
+                <button class="am-btn am-btn-primary" ng-click="get()">搜索</button>
+            </span>
+        </div>
+        <table class="am-table">
+            <tr>
+                <th>ID</th>
+                <th>姓名</th>
+                <th>人口</th>
+            </tr>
+            <tr ng-repeat="d in data">
+                <td>{{d.id}}</td>
+                <td>{{d.name}}</td>
+                <td>{{d.population}}</td>
+            </tr>
+        </table>
+        <div id="page"></div>
+    </div>
+</div>

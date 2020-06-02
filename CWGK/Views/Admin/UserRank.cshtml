@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "UserRank";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<div ng-controller="UserRankCtrl">
+    <div class="content-wrapper ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>网格员考评</h5>
+            <div class="ibox-tools refresh">
+                <button type="button" class="btn btn-primary btn-sm" ng-click="refresh()"><i class="fa fa-refresh"></i></button>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <h3>浏览量排名</h3>
+                        <table class="layui-table">
+                            <colgroup>
+                                <col>
+                                <col>
+                                <col>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>排名</th>
+                                    <th>姓名</th>
+                                    <th>浏览量</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="d in scan">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{d.name}}</td>
+                                    <td>{{d.count_scan}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-xs-4">
+                        <h3>提问数排名</h3>
+                        <table class="layui-table">
+                            <colgroup>
+                                <col>
+                                <col>
+                                <col>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>排名</th>
+                                    <th>姓名</th>
+                                    <th>提问数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="d in question">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{d.name}}</td>
+                                    <td>{{d.count_question}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-xs-4">
+                        <h3>浏览时长排名</h3>
+                        <table class="layui-table">
+                            <colgroup>
+                                <col>
+                                <col>
+                                <col>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>排名</th>
+                                    <th>姓名</th>
+                                    <th>浏览时长</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="d in duration">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{d.name}}</td>
+                                    <td>{{d.count_duration}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

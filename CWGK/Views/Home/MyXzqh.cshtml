@@ -1,0 +1,26 @@
+﻿
+@{
+    Layout = null;
+}
+
+<header class="am-header am-header-default">
+    <div class="am-header-left am-header-nav" ng-click="back()">
+        <a>
+            <i class="am-header-icon am-icon-chevron-left"></i>
+        </a>
+    </div>
+    <h1 class="am-header-title">
+        <a>村镇绑定</a>
+    </h1>
+</header>
+<div class="am-titlebar am-titlebar-default">
+    <h2 class="am-titlebar-title">村镇绑定</h2>
+</div>
+<div style="padding:10px 30px;">
+    <div ng-repeat="x in xzqh" ng-click="check(x)" style="line-height:30px;">
+        <i class="checkbox {{x.select?'am-icon-check-square-o':'am-icon-square-o'}}" ng-style="{'margin-left':x.code.length==15?'10px':'0px'}"></i>
+        <span ng-if="x.code.length==9">【{{x.name}}】</span>
+        <span ng-if="x.code.length==15" style="margin-left:10px;">{{x.name}}</span>
+    </div>
+    <button class="am-btn am-btn-primary am-btn-block" ng-click="add()">保存</button>
+</div>

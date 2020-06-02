@@ -1,0 +1,146 @@
+﻿
+@{
+    ViewBag.Title = "新闻管理";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+<div ng-controller="NewsCtrl">
+    <div class="content-wrapper ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>新闻管理</h5>
+            <div class="ibox-tools refresh">
+                <button type="button" class="btn btn-primary btn-sm" ng-click="refresh()"><i class="fa fa-refresh"></i></button>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <form class="form-inline toolbar">
+                <div class="form-group">
+                    <label class="control-label first-key-short">村镇：</label>
+                    <select class="form-control input-sm" ng-options="x.code as x.name for x in xzqh_search" ng-model="search.string1"></select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label second-key-long">分类：</label>
+                    <select class="form-control input-sm" ng-options="x.id as x.name for x in type_search" ng-model="search.number1"></select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label second-key-long">状态：</label>
+                    <select class="form-control input-sm" ng-options="x.id as x.name for x in state_search" ng-model="search.number2"></select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label second-key-long">标题：</label>
+                    <input type="text" placeholder="请输入标题关键字" class="form-control input-sm" ng-model="search.string2">
+                </div>
+                <button class="btn btn-primary btn-sm toolbar-btn" ng-click="get()">搜索</button>
+                <button class="btn btn-primary btn-sm toolbar-btn" ng-click="reset()">重置</button>
+                <button class="btn btn-primary btn-sm toolbar-btn toolbar-btn-right" ng-click="add_show()">添加</button>
+            </form>
+            <table class="layui-table">
+                <colgroup>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col width="150">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>新闻归属</th>
+                        <th>新闻分类</th>
+                        <th>标题</th>
+                        <th>时间</th>
+                        <th>浏览量</th>
+                        <th>发布人</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="d in data">
+                        <td>{{d.id}}</td>
+                        <td>{{d.xzqhname}}</td>
+                        <td>{{d.typename}}</td>
+                        <td>{{d.title}}</td>
+                        <td>{{d.time}}</td>
+                        <td>{{d.scan}}</td>
+                        <td>{{d.adminname}}</td>
+                        <td>
+                            <span class="label label-primary" ng-if="d.state==1">已发布</span>
+                            <span class="label label-warning" ng-if="d.state==0">审核中</span>
+                        </td>
+                        <td>
+                            <i class="fa fa-file icon-table icon-edit3" ng-click="preview(d)" title="预览"></i>
+                            <i class="fa fa-edit icon-table icon-edit2" ng-click="edit_show(d)" title="修改"></i>
+                            <i class="fa fa-check icon-table icon-edit2" ng-if="d.state==0" ng-click="check(d,1)" title="发布"></i>
+                            <i class="fa fa-close icon-table icon-edit2" ng-if="d.state==1" ng-click="check(d,0)" title="撤销发布"></i>
+                            <i class="fa fa-trash icon-table icon-delete" ng-click="delete(d)" title="删除"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="page"></div>
+        </div>
+    </div>
+    <div id="modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">乡镇</label>
+                            <div class="col-sm-10">
+                                <select class="form-control input-sm" ng-options="x.code as x.name for x in xzqh_list" ng-model="model.xzqhcode"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">分类</label>
+                            <div class="col-sm-10">
+                                <select class="form-control input-sm" ng-options="x.id as x.name for x in type_list" ng-model="model.typeid"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">标题</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="model.title">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">内容</label>
+                            <div class="col-sm-10">
+                                <script id="container" name="content" type="text/plain">
+                                </script>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary btn-sm" data-dismiss="modal">取消</button>
+                    <button class="btn btn-primary btn-sm" ng-if="model.id==null" ng-click="add()">新增</button>
+                    <button class="btn btn-primary btn-sm" ng-if="model.id!=null" ng-click="edit()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-preview" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div ng-bind-html="model.html"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

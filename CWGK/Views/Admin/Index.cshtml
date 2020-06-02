@@ -1,0 +1,144 @@
+﻿
+@{
+    ViewBag.Title = "首页";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<div ng-controller="IndexCtrl" id="wrapper">
+    <!--左侧导航开始-->
+    <nav class="navbar-default navbar-static-side">
+        <div class="nav-close">
+            <i class="fa fa-times-circle"></i>
+        </div>
+        <div class="sidebar-collapse">
+            <ul class="nav" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element">
+                        <span><img alt="image" class="img-circle" style="width: 50px;" src="~/Image/head.jpg" /></span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear">
+                                <span class="block m-t-xs"><strong class="font-bold" ng-bind="admin.name"></strong></span>
+                                <span class="text-muted text-xs block">管理<b class="caret"></b></span>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li>
+                                <a ng-click="logout()">安全退出</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="active">
+                    <a href="#">
+                        <i class="fa fa-map"></i>
+                        <span class="nav-label">新闻管理</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="/admin/news">新闻管理</a>
+                        </li>
+                        <li ng-show="admin.level==1">
+                            <a class="J_menuItem" href="/admin/newstype">新闻分类</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="/admin/newstalk">新闻互动</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="active">
+                    <a href="#">
+                        <i class="fa fa-user"></i>
+                        <span class="nav-label">账号管理</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="/admin/admin">管理员账号</a>
+                        </li>
+                        <li ng-show="admin.level==1">
+                            <a class="J_menuItem" href="/admin/user">网格员账号</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="active" ng-show="admin.level==1">
+                    <a href="#">
+                        <i class="fa fa-signal"></i>
+                        <span class="nav-label">考评</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="/admin/userrank">网格员考评</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="active">
+                    <a href="#">
+                        <i class="fa fa-lock"></i>
+                        <span class="nav-label">安全设置</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="/admin/password">修改密码</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--左侧导航结束-->
+    <!--右侧部分开始-->
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+            <nav class="navbar navbar-static-top" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i></a>
+                </div>
+            </nav>
+        </div>
+        <div class="row content-tabs">
+            <button class="roll-nav roll-left J_tabLeft">
+                <i class="fa fa-backward"></i>
+            </button>
+            <nav class="page-tabs J_menuTabs">
+                <div class="page-tabs-content">
+                    <a href="javascript:;" class="active J_menuTab" data-id="index_v1.html">首页</a>
+                </div>
+            </nav>
+            <button class="roll-nav roll-right J_tabRight">
+                <i class="fa fa-forward"></i>
+            </button>
+            <div class="btn-group roll-nav roll-right">
+                <button class="dropdown J_tabClose" data-toggle="dropdown">
+                    关闭操作<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li class="J_tabShowActive">
+                        <a>定位当前选项卡</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li class="J_tabCloseAll">
+                        <a>关闭全部选项卡</a>
+                    </li>
+                    <li class="J_tabCloseOther">
+                        <a>关闭其他选项卡</a>
+                    </li>
+                </ul>
+            </div>
+            <a class="roll-nav roll-right J_tabExit" ng-click="logout()"><i class="fa fa fa-sign-out"></i>退出</a>
+        </div>
+        <div class="row J_mainContent" id="content-main">
+            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" style="min-height:500px;" src="/admin/news" frameborder="0" seamless></iframe>
+        </div>
+        <div class="footer">
+            <div class="pull-right">
+                &copy; 2020 桦川县村务公开专属网格资源平台
+            </div>
+        </div>
+    </div>
+    <!--右侧部分结束-->
+
+</div>
+

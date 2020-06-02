@@ -1,0 +1,51 @@
+﻿
+@{
+    Layout = null;
+}
+
+<header class="am-header am-header-default">
+    <div class="am-header-left am-header-nav" ng-click="back()">
+        <a>
+            <i class="am-header-icon am-icon-chevron-left"></i>
+        </a>
+    </div>
+    <h1 class="am-header-title">
+        <a>我的小组</a>
+    </h1>
+</header>
+<div class="content-wrapper">
+    <div class="am-list-news am-list-news-default">
+        <div class="am-titlebar am-titlebar-default">
+            <h2 class="am-titlebar-title">我的小组</h2>
+        </div>
+        <div class="am-panel-group" id="accordion">
+            <div class="am-panel am-panel-default" ng-repeat="d in data">
+                <div class="am-panel-hd" data-am-collapse="{parent: '#accordion', target: '#do-not-say-{{$index}}'}" ng-click="preview(d)">
+                    <h4 class="am-panel-title">
+                        {{d.name}}
+                    </h4>
+                </div>
+                <div id="do-not-say-{{$index}}" class="am-panel-collapse am-collapse" ng-class="{'am-in':$index==0}">
+                    <div class="am-panel-bd">
+                        <p><strong>扶贫服务：</strong>{{d.abilityname}}</p>
+                        <p><strong>组长：</strong>{{d.leadername}}</p>
+                        <table class="am-table">
+                            <tr>
+                                <th>ID</th>
+                                <th>姓名</th>
+                                <th>电话</th>
+                            </tr>
+                            <tr ng-repeat="m in d.member">
+                                <td>{{m.id}}</td>
+                                <td>{{m.name}}</td>
+                                <td>{{m.phone}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="page"></div>
+    </div>
+</div>
+

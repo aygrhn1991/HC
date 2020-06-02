@@ -1,0 +1,6 @@
+/.svn
+/.vs
+*/bin
+*/obj
+*Upload
+/packages

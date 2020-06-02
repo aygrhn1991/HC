@@ -1,0 +1,85 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
+    <title>桦川县村务公开专属网格资源平台</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="~/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/AmazeUI/assets/css/amazeui.css" rel="stylesheet" />
+    <link href="~/Content/cwgk_home.css" rel="stylesheet" />
+</head>
+<body  class="fixed-sidebar full-height-layout gray-bg" style="overflow:scroll;height:100%;" ng-app="app" ng-controller="NewsDetailForDataVCtrl">
+    <div>
+        <header class="am-header am-header-default">
+            <h1 class="am-header-title">
+                <a>新闻</a>
+            </h1>
+        </header>
+        <article class="am-article" style="padding:20px 20px 0 20px;">
+            <div class="am-article-hd">
+                <h1 class="am-article-title" ng-bind="news.title"></h1>
+                <p class="am-article-meta" ng-bind="news.time"></p>
+            </div>
+            <div class="am-article-bd" ng-bind-html="news.html"></div>
+        </article>
+        <div class="am-titlebar am-titlebar-default" ng-if="data.length!=0">
+            <h2 class="am-titlebar-title ">
+                新闻互动
+            </h2>
+        </div>
+        <article class="am-comment" ng-repeat="d in data" style="padding:10px 20px;">
+            <a>
+                <img src="~/Image/head.jpg" alt="" class="am-comment-avatar" width="48" height="48" />
+            </a>
+            <div class="am-comment-main">
+                <header class="am-comment-hd">
+                    <div class="am-comment-meta">
+                        <a class="am-comment-author">{{d.username}}</a>
+                        <time>{{d.time}}</time>
+                    </div>
+                </header>
+                <div class="am-comment-bd" style="font-size:14px;padding:10px 15px;">
+                    <p style="margin-bottom:10px;">{{d.question}}</p>
+                    <blockquote ng-if="d.answer!=null" style="padding-top:0;padding-bottom:0;margin-top:0;">回复：{{d.answer}}</blockquote>
+                </div>
+            </div>
+        </article>
+        <div class="am-modal am-modal-no-btn" tabindex="-1" id="modal">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd">
+                    新闻互动
+                    <a class="am-close am-close-spin" data-am-modal-close>&times;</a>
+                </div>
+                <div class="am-modal-bd" style="text-align:left;">
+                    <form class="am-form">
+                        <div class="am-form-group">
+                            <textarea rows="5" ng-model="model.question"></textarea>
+                        </div>
+                        <div class="am-form-group am-form-file">
+                            <i class="am-icon-cloud-upload"></i>&nbsp;选择要上传的文件
+                            <input type="file" id="files" multiple>
+                        </div>
+                        <button class="am-btn am-btn-primary am-btn-block" ng-click="add()">提交</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/UI/js/jquery.min.js"></script>
+    <script src="~/AmazeUI/assets/js/amazeui.js"></script>
+    <script src="~/layui/layui.all.js"></script>
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/angular-route.js"></script>
+    <script src="~/Scripts/util.js"></script>
+    <script src="~/Scripts/common.js"></script>
+    <script src="~/Scripts/cwgk_home.js"></script>
+</body>
+</html>

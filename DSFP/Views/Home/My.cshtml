@@ -1,0 +1,48 @@
+﻿
+@{
+    Layout = null;
+}
+
+<header class="am-header am-header-default">
+    <h1 class="am-header-title">
+        <a>个人中心</a>
+    </h1>
+</header>
+<div class="am-intro am-cf am-intro-default">
+    <div class="am-g am-intro-bd" style="border-bottom:1px solid #eee;">
+        <div class="am-intro-left am-u-sm-3"><img src="~/Image/head.jpg" /></div>
+        <div class="am-intro-right am-u-sm-9">
+            <div style="font-size:18px;">{{data.name}}</div>
+            <div>{{data.phone}}</div>
+        </div>
+    </div>
+</div>
+<div class="am-g">
+    <div class="am-u-sm-4 mybox">
+        <a href="#/myteam">
+            <i class="am-icon-flag"></i>
+            <div>我的小组</div>
+        </a>
+    </div>
+    <div class="am-u-sm-4 mybox">
+        <a href="#/myxzqh">
+            <i class="am-icon-institution"></i>
+            <div>贫困村</div>
+        </a>
+    </div>
+    <div class="am-u-sm-4 mybox">
+        <a href="#/mypoor">
+            <i class="am-icon-group"></i>
+            <div>扶贫对象</div>
+        </a>
+    </div>
+    @for (int i = 0; i < 6; i++)
+    {
+        <div class="am-u-sm-4 mybox">
+            <a>
+                <i class="am-icon-spinner"></i>
+                <div>功能未开放</div>
+            </a>
+        </div>
+    }
+</div>

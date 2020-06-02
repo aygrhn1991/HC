@@ -1,0 +1,39 @@
+﻿
+@{
+    Layout = null;
+}
+
+<header class="am-header am-header-default">
+    <div class="am-header-left am-header-nav" ng-click="back()">
+        <a>
+            <i class="am-header-icon am-icon-chevron-left"></i>
+        </a>
+    </div>
+    <h1 class="am-header-title">
+        <a>排行榜</a>
+    </h1>
+</header>
+<div class="am-titlebar am-titlebar-default">
+    <h2 class="am-titlebar-title" ng-bind="typeName"></h2>
+</div>
+<div class="am-list-news am-list-news-default">
+    <table class="am-table am-table-compact am-table-centered">
+        <thead>
+            <tr>
+                <th>排名</th>
+                <th>姓名</th>
+                <th>{{typeName}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="d in data" ng-class="{'am-success':$index<3,'am-primary':user.id==d.id}">
+                <td>{{$index+1}}</td>
+                <td>{{d.name}}</td>
+                <td>{{d.data}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+

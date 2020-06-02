@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "Poor";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<div ng-controller="PoorCtrl">
+    <div class="content-wrapper ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>扶贫对象</h5>
+            <div class="ibox-tools refresh">
+                <button type="button" class="btn btn-primary btn-sm" ng-click="refresh()"><i class="fa fa-refresh"></i></button>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <form class="form-inline toolbar">
+                <div class="form-group">
+                    <label class="control-label first-key-short">村镇：</label>
+                    <select class="form-control input-sm" ng-options="x.code as x.name for x in xzqh_search" ng-model="search.string1"></select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label second-key-long">姓名：</label>
+                    <input type="text" placeholder="请输入姓名关键字" class="form-control input-sm" ng-model="search.string2">
+                </div>
+                <button class="btn btn-primary btn-sm toolbar-btn" ng-click="get()">搜索</button>
+                <button class="btn btn-primary btn-sm toolbar-btn" ng-click="reset()">重置</button>
+                <button class="btn btn-primary btn-sm toolbar-btn toolbar-btn-right" ng-click="add_show()">添加</button>
+            </form>
+            <table class="layui-table">
+                <colgroup>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col width="150">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>姓名</th>
+                        <th>村镇</th>
+                        <th>家庭人口</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="d in data">
+                        <td>{{d.id}}</td>
+                        <td>{{d.name}}</td>
+                        <td>{{d.xzqhname}}</td>
+                        <td>{{d.population}}</td>
+                        <td>
+                            <i class="fa fa-edit icon-table icon-edit2" ng-click="edit_show(d)" title="修改"></i>
+                            <i class="fa fa-trash icon-table icon-delete" ng-click="delete(d)" title="删除"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="page"></div>
+        </div>
+    </div>
+    <div id="modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">姓名</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="model.name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">乡镇</label>
+                            <div class="col-sm-10">
+                                <select class="form-control input-sm" ng-options="x.code as x.name for x in xzqh_list" ng-model="model.xzqhcode"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">家庭人口</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" ng-model="model.population">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary btn-sm" data-dismiss="modal">取消</button>
+                    <button class="btn btn-primary btn-sm" ng-if="model.id==null" ng-click="add()">新增</button>
+                    <button class="btn btn-primary btn-sm" ng-if="model.id!=null" ng-click="edit()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

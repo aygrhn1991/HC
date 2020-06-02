@@ -1,0 +1,31 @@
+﻿
+@{
+    /**/
+
+    Layout = null;
+}
+
+<header class="am-header am-header-default">
+    <div class="am-header-left am-header-nav" ng-click="back()">
+        <a>
+            <i class="am-header-icon am-icon-chevron-left"></i>
+        </a>
+    </div>
+    <h1 class="am-header-title">
+        <a>新闻正文</a>
+    </h1>
+</header>
+<article class="am-article" style="padding:20px 20px 0 20px;" ng-if="type==1">
+    <div class="am-article-hd">
+        <h1 class="am-article-title" ng-bind="newsZwgk.title"></h1>
+        <p class="am-article-meta">{{newsZwgk.time}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{newsZwgk.author}}</p>
+    </div>
+    <div class="am-article-bd" ng-bind-html="newsZwgk.html"></div>
+</article>
+<article class="am-article" style="padding:20px 20px 0 20px;" ng-if="type==4">
+    <div class="am-article-hd">
+        <h1 class="am-article-title" ng-bind="newsBslc.title"></h1>
+        <p class="am-article-meta">{{newsBslc.time}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{newsBslc.author}}</p>
+    </div>
+    <div class="am-article-bd" ng-bind-html="newsBslc.html"></div>
+</article>

@@ -1,0 +1,50 @@
+﻿
+@{
+    Layout = null;
+}
+
+<header class="am-header am-header-default">
+    <div class="am-header-left am-header-nav" ng-click="back()">
+        <a>
+            <i class="am-header-icon am-icon-chevron-left"></i>
+        </a>
+    </div>
+    <h1 class="am-header-title">
+        <a>签约扶贫</a>
+    </h1>
+</header>
+<div class="content-wrapper">
+    <div class="am-list-news am-list-news-default">
+        <div class="am-titlebar am-titlebar-default">
+            <h2 class="am-titlebar-title">签约扶贫</h2>
+        </div>
+        <div class="am-input-group" style="margin-bottom:10px;">
+            <select class="am-form-field" ng-options="x for x in year" ng-model="search.number1"></select>
+            <span class="am-input-group-btn">
+                <button class="am-btn am-btn-primary" ng-click="get()">搜索</button>
+            </span>
+        </div>
+        <div class="am-panel-group" id="accordion">
+            <div class="am-panel am-panel-default" ng-repeat="d in data">
+                <div class="am-panel-hd" data-am-collapse="{parent: '#accordion', target: '#do-not-say-{{$index}}'}" ng-click="preview(d)">
+                    <h4 class="am-panel-title">
+                        {{d.name}}
+                    </h4>
+                </div>
+                <div id="do-not-say-{{$index}}" class="am-panel-collapse am-collapse" ng-class="{'am-in':$index==0}">
+                    <div class="am-panel-bd">
+                        <p><strong>签约编号：</strong>{{d.number}}</p>
+                        <p><strong>签约名称：</strong>{{d.name}}</p>
+                        <p><strong>扶贫对象：</strong>{{d.poorname}}</p>
+                        <p><strong>签约时间：</strong>{{d.time}}</p>
+                        <p><strong>签约期限：</strong>{{d.datestart}} - {{d.dateend}}</p>
+                        <p><strong>水稻产量(kg)：</strong>{{d.weight}}</p>
+                        <p><strong>签约单价(元)：</strong>{{d.price}}</p>
+                        <p><strong>总计(元)：</strong>{{(d.weight!=null&&d.price!=null)?d.weight*d.price:0|number:2}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="page"></div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+﻿
+@{
+    Layout = null;
+}
+<header class="am-header am-header-default">
+    <h1 class="am-header-title">
+        <a>新闻分类</a>
+    </h1>
+</header>
+<div>
+    <div class="am-titlebar am-titlebar-default">
+        <h2 class="am-titlebar-title ">
+            县级新闻
+        </h2>
+    </div>
+    <div class="am-g">
+        <div class="am-u-sm-3 myText">
+            <a href="#/news/0/1">
+                <div>政务公开</div>
+            </a>
+        </div>
+        <div class="am-u-sm-3 myText">
+            <a href="#/news/0/2">
+                <div>办件统计</div>
+            </a>
+        </div>
+        <div class="am-u-sm-3 myText">
+            <a href="#/news/0/3">
+                <div>办件公示</div>
+            </a>
+        </div>
+        <div class="am-u-sm-3 myText">
+            <a href="#/news/0/4">
+                <div>办事流程</div>
+            </a>
+        </div>
+    </div>
+</div>
+<div ng-repeat="x in xzqh">
+    <div class="am-titlebar am-titlebar-default">
+        <h2 class="am-titlebar-title" ng-bind="x.name"></h2>
+    </div>
+    <div class="am-g">
+        <div class="am-u-sm-3 myText" ng-repeat="t in type">
+            <a href="#/news/{{x.code}}/{{t.id}}">
+                <div ng-bind="t.name"></div>
+            </a>
+        </div>
+        <div class="am-u-sm-3 myText" style="opacity:0;"></div>
+    </div>
+</div>
