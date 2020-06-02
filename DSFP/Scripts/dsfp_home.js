@@ -83,6 +83,28 @@ app.controller('SignCtrl', function ($scope, $http) {
     $scope.reset();
 });
 app.controller('ActivityCtrl', function ($scope, $http) {
+    $scope.getAbility = function () {
+        $http.post('/common/GetTeamAbility').success(function (data) {
+            $scope.ability = data.data;
+        });
+    };
+    $scope.getAbility();
+    $scope.getTeam = function () {
+        $http.post('/common/GetTeam').success(function (data) {
+            $scope.team = data.data;
+        });
+    };
+    $scope.getTeam();
+    $scope.getPoor = function () {
+        $http.post('/common/GetPoor').success(function (data) {
+            $scope.poor = [];
+            data.data.forEach(function (e) {
+                e.select = false;
+                $scope.poor.push(e);
+            });
+        });
+    };
+    $scope.getPoor();
     $scope.year = [];
     for (var i = 0; i < 10; i++) {
         $scope.year.push(2020 + i);
@@ -102,17 +124,172 @@ app.controller('ActivityCtrl', function ($scope, $http) {
                 });
                 $scope.data = data.data;
                 if (data.data.length !== 0) {
+                    $scope.model = $scope.data[0];
                     $scope.preview($scope.data[0]);
                 }
                 $scope.makePage(data);
             }
         });
     };
+    $scope.add_show = function () {
+        $scope.model = window.Util.getObject($scope.m);
+        $scope.model.time = window.Util.dateToYYMMDD(new Date());
+        layui.laydate.render({
+            elem: '#time1',
+            value: $scope.model.time,
+            done: function (value, date) {
+                $scope.model.time = value;
+            }
+        });
+        $scope.poor.forEach(function (e) {
+            e.select = false;
+        });
+        $('#modal').modal('toggle');
+    };
+    $scope.add = function () {
+        if (window.Util.isNull($scope.model.name)) {
+            layer.msg('姓名为空');
+            return;
+        }
+        if (window.Util.isNull($scope.model.teamid)) {
+            layer.msg('小组为空');
+            return;
+        }
+        if (window.Util.isNull($scope.model.time)) {
+            layer.msg('时间为空');
+            return;
+        }
+        var ids = [];
+        $scope.poor.forEach(function (e) {
+            if (e.select) {
+                ids.push(e.id);
+            }
+        });
+        if (ids.length === 0) {
+            layer.msg('请至少选择一名扶贫对象');
+            return;
+        }
+        $http.post('/admin/Activity_Add', { model: $scope.model, ids: ids }).success(function (data) {
+            layer.msg(data.message);
+            if (data.success) {
+                $('#modal').modal('toggle');
+                $scope.get();
+            }
+        });
+    };
+    $scope.edit_show = function (e) {
+        $scope.model = e;
+        layui.laydate.render({
+            elem: '#time1',
+            value: $scope.model.time,
+            done: function (value, date) {
+                $scope.model.time = value;
+            }
+        });
+        $http.post('/admin/Activity_GetActivityPoor', { id: $scope.model.id }).success(function (data) {
+            $scope.poor.forEach(function (e) {
+                if (data.data.filter(function (f) { return f.id === e.id; }).length > 0) {
+                    e.select = true;
+                } else {
+                    e.select = false;
+                }
+            });
+        });
+        $('#modal').modal('toggle');
+    };
+    $scope.edit = function () {
+        if (window.Util.isNull($scope.model.name)) {
+            layer.msg('姓名为空');
+            return;
+        }
+        if (window.Util.isNull($scope.model.teamid)) {
+            layer.msg('小组为空');
+            return;
+        }
+        if (window.Util.isNull($scope.model.time)) {
+            layer.msg('时间为空');
+            return;
+        }
+        var ids = [];
+        $scope.poor.forEach(function (e) {
+            if (e.select) {
+                ids.push(e.id);
+            }
+        });
+        if (ids.length === 0) {
+            layer.msg('请至少选择一名扶贫对象');
+            return;
+        }
+        $http.post('/admin/Activity_Edit', { model: $scope.model, ids: ids }).success(function (data) {
+            layer.msg(data.message);
+            if (data.success) {
+                $('#modal').modal('toggle');
+                $scope.get();
+            }
+        });
+    };
+    $scope.delete = function (e) {
+        layer.confirm('确定删除？', {}, function () {
+            $http.post('/admin/Activity_Delete', { id: e.id }).success(function (data) {
+                layer.msg(data.message);
+                if (data.success) {
+                    $scope.get();
+                }
+            });
+        });
+    };
     $scope.preview = function (e) {
+        $scope.model = e;
         $http.post('/home/Activity_GetActivityPoor', { id: e.id }).success(function (data) {
             e.poor = data.data;
         });
-        $('#modal-preview').modal('toggle');
+    };
+    $scope.profit_show = function (e, f) {
+        $scope.tempPoor = e;
+        $scope.model = f;
+        $('#modal-profit').modal('toggle');
+    };
+    $scope.setProfit = function () {
+        $http.post('/admin/Activity_EditPoorProfit', { activityid: $scope.model.id, poorid: $scope.tempPoor.id, profit: $scope.tempPoor.profit }).success(function (data) {
+            layer.msg(data.message);
+            if (data.success) {
+                $scope.preview($scope.model);
+                $('#modal-profit').modal('toggle');
+            }
+        });
+    };
+    $scope.finish_show = function (e) {
+        $scope.model = e;
+        $http.post('/admin/Activity_GetActivityPoor', { id: $scope.model.id }).success(function (data) {
+            var finishCount = 0;
+            data.data.forEach(function (e) {
+                if (!window.Util.isNull(e.profit) && e.profit !== 0) {
+                    finishCount++;
+                }
+            });
+            if (finishCount === data.data.length) {
+                $('#modal-finish').modal('toggle');
+            } else {
+                layer.msg('有扶贫对象尚未完成收益填报，活动无法设置完成');
+            }
+        });
+    };
+    $scope.finish = function () {
+        if (window.Util.isNull($scope.model.result)) {
+            layer.msg('成果反馈为空');
+            return;
+        }
+        if (window.Util.isNull($scope.model.suggest)) {
+            layer.msg('意见建议为空');
+            return;
+        }
+        $http.post('/admin/Activity_Check', $scope.model).success(function (data) {
+            layer.msg(data.message);
+            if (data.success) {
+                $('#modal-finish').modal('toggle');
+                $scope.get();
+            }
+        });
     };
     $scope.makePage = function (data) {
         layui.laypage.render({
@@ -133,6 +310,16 @@ app.controller('ActivityCtrl', function ($scope, $http) {
                 }
             }
         });
+    };
+    $scope.m = {
+        id: null,
+        name: null,
+        number: null,
+        teamid: null,
+        abilityid: null,
+        time: null,
+        result: null,
+        suggest: null
     };
     $scope.reset = function () {
         $scope.loading = null;
@@ -160,6 +347,18 @@ app.controller('MyCtrl', function ($scope, $http) {
     $scope.reset();
 });
 app.controller('MyTeamCtrl', function ($scope, $http) {
+    $scope.getAbility = function () {
+        $http.post('/common/GetTeamAbility').success(function (data) {
+            $scope.ability = data.data;
+        });
+    };
+    $scope.getAbility();
+    $scope.getUser = function () {
+        $http.post('/common/GetUser').success(function (data) {
+            $scope.user = data.data;
+        });
+    };
+    $scope.getUser();
     $scope.get = function () {
         $scope.loading = layer.load();
         $http.post('/home/MyTeam_GetListByPage', $scope.search).success(function (data) {
@@ -171,6 +370,92 @@ app.controller('MyTeamCtrl', function ($scope, $http) {
                 }
                 $scope.makePage(data);
             }
+        });
+    };
+    $scope.add_show = function () {
+        $scope.model = window.Util.getObject($scope.m);
+        $scope.user.forEach(function (e) {
+            e.select = false;
+        });
+        $('#modal').modal('toggle');
+    };
+    $scope.add = function () {
+        if (window.Util.isNull($scope.model.name)) {
+            layer.msg('姓名为空');
+            return;
+        }
+        if (window.Util.isNull($scope.model.abilityid)) {
+            layer.msg('服务为空');
+            return;
+        }
+        var ids = [];
+        $scope.user.forEach(function (e) {
+            if (e.select) {
+                ids.push(e.id);
+            }
+        });
+        if (ids.length === 0) {
+            layer.msg('请至少选择一名网格员');
+            return;
+        }
+        $scope.model.leaderid = ids[0];
+        $http.post('/admin/Team_Add', { model: $scope.model, ids: ids }).success(function (data) {
+            layer.msg(data.message);
+            if (data.success) {
+                $('#modal').modal('toggle');
+                $scope.get();
+            }
+        });
+    };
+    $scope.edit_show = function (e) {
+        $scope.model = e;
+        $http.post('/admin/Team_GetTeamUser', { id: $scope.model.id }).success(function (data) {
+            $scope.user.forEach(function (e) {
+                if (data.data.filter(function (f) { return f.id === e.id; }).length > 0) {
+                    e.select = true;
+                } else {
+                    e.select = false;
+                }
+            });
+        });
+        $('#modal').modal('toggle');
+    };
+    $scope.edit = function () {
+        if (window.Util.isNull($scope.model.name)) {
+            layer.msg('姓名为空');
+            return;
+        }
+        if (window.Util.isNull($scope.model.abilityid)) {
+            layer.msg('服务为空');
+            return;
+        }
+        var ids = [];
+        $scope.user.forEach(function (e) {
+            if (e.select) {
+                ids.push(e.id);
+            }
+        });
+        if (ids.length === 0) {
+            layer.msg('请至少选择一名网格员');
+            return;
+        }
+        $scope.model.leaderid = ids[0];
+        $http.post('/admin/Team_Edit', { model: $scope.model, ids: ids }).success(function (data) {
+            layer.msg(data.message);
+            if (data.success) {
+                $('#modal').modal('toggle');
+                $scope.get();
+            }
+        });
+    };
+    $scope.delete = function (e) {
+        layer.confirm('确定删除？', {}, function () {
+            $http.post('/admin/Team_Delete', { id: e.id }).success(function (data) {
+                layer.msg(data.message);
+                if (data.success) {
+                    $scope.get();
+                }
+            });
         });
     };
     $scope.preview = function (e) {
@@ -198,6 +483,12 @@ app.controller('MyTeamCtrl', function ($scope, $http) {
                 }
             }
         });
+    };
+    $scope.m = {
+        id: null,
+        name: null,
+        abilityid: null,
+        leaderid: null
     };
     $scope.reset = function () {
         $scope.loading = null;

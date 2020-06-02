@@ -12,6 +12,11 @@
     <h1 class="am-header-title">
         <a>我的小组</a>
     </h1>
+    <div class="am-header-right am-header-nav" ng-click="add_show()">
+        <a>
+            <i class="am-header-icon am-icon-plus"></i>
+        </a>
+    </div>
 </header>
 <div class="content-wrapper">
     <div class="am-list-news am-list-news-default">
@@ -26,8 +31,12 @@
                     </h4>
                 </div>
                 <div id="do-not-say-{{$index}}" class="am-panel-collapse am-collapse" ng-class="{'am-in':$index==0}">
-                    <div class="am-panel-bd">
-                        <p><strong>扶贫服务：</strong>{{d.abilityname}}</p>
+                    <div class="am-panel-bd" style="position:relative;">
+                        <div class="panel-handle">
+                            <span ng-click="edit_show(d)" style="color:#0e90d2;">[修改]</span>
+                            <span ng-click="delete(d)" style="color:red;">[删除]</span>
+                        </div>
+                        <div><strong>扶贫服务：</strong>{{d.abilityname}}</div>
                         <p><strong>组长：</strong>{{d.leadername}}</p>
                         <table class="am-table">
                             <tr>
@@ -46,6 +55,42 @@
             </div>
         </div>
         <div id="page"></div>
+    </div>
+</div>
+<div class="am-modal am-modal-no-btn" tabindex="-1" id="modal">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">
+            小组
+            <a class="am-close am-close-spin" data-am-modal-close>&times;</a>
+        </div>
+        <div class="am-modal-bd" style="text-align:left;">
+            <form class="am-form">
+                <div class="am-form-group">
+                    <label>小组名称</label>
+                    <input type="text" ng-model="model.name">
+                </div>
+                <div class="am-form-group">
+                    <label>服务</label>
+                    <select class="form-control input-sm" ng-options="x.id as x.name for x in ability" ng-model="model.abilityid"></select>
+                </div>
+                <div class="am-form-group">
+                    <label>小组名称</label>
+                    <div style="color:red;font-weight:bold;">*排序第一人为小组组长*</div>
+                </div>
+                <div class="am-form-group">
+                    <input type="text" ng-model="keyword" placeholder="网格员姓名筛选">
+                </div>
+                <div style="height:200px;overflow-y:auto;margin-bottom:10px;">
+                    <div ng-repeat="x in user|filter:keyword" ng-click="x.select=!x.select" style="line-height:30px;">
+                        <i class="checkbox {{x.select?'am-icon-check-square-o':'am-icon-square-o'}}" }"></i>
+                        <span>{{x.name}}</span>
+                    </div>
+                </div>
+                <button class="am-btn am-btn-primary am-btn-block" ng-if="model.id==null" ng-click="add()">保存</button>
+                <button class="am-btn am-btn-primary am-btn-block" ng-if="model.id!=null" ng-click="edit()">保存</button>
+            </form>
+
+        </div>
     </div>
 </div>
 
