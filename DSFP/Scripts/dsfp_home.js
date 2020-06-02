@@ -271,19 +271,6 @@ app.controller('ActivityCtrl', function ($scope, $http) {
         } else {
             layer.msg('有扶贫对象尚未完成收益填报，活动无法设置完成');
         }
-        //$http.post('/admin/Activity_GetActivityPoor', { id: $scope.model.id }).success(function (data) {
-        //    var finishCount = 0;
-        //    data.data.forEach(function (e) {
-        //        if (!window.Util.isNull(e.profit) && e.profit !== 0) {
-        //            finishCount++;
-        //        }
-        //    });
-        //    if (finishCount === data.data.length) {
-        //        $('#modal-finish').modal('toggle');
-        //    } else {
-        //        layer.msg('有扶贫对象尚未完成收益填报，活动无法设置完成');
-        //    }
-        //});
     };
     $scope.finish = function () {
         if (window.Util.isNull($scope.model.result)) {
