@@ -34,12 +34,15 @@
             <div class="am-panel am-panel-default" ng-repeat="d in data">
                 <div class="am-panel-hd" data-am-collapse="{parent: '#accordion', target: '#do-not-say-{{$index}}'}" ng-click="preview(d)">
                     <h4 class="am-panel-title">
+                        <span style="color:orange;" ng-if="d.state==0">【进行中】</span>
+                        <span style="color:green;" ng-if="d.state==1">【已完成】</span>
                         {{d.name}}
                     </h4>
                 </div>
                 <div id="do-not-say-{{$index}}" class="am-panel-collapse am-collapse" ng-class="{'am-in':$index==0}">
                     <div class="am-panel-bd" style="position:relative;">
                         <div class="panel-handle">
+                            <span ng-click="finish_show(d)" style="color:#0e90d2;" ng-if="d.state==0">[汇报]</span>
                             <span ng-click="edit_show(d)" style="color:#0e90d2;">[修改]</span>
                             <span ng-click="delete(d)" style="color:red;">[删除]</span>
                         </div>
@@ -48,11 +51,8 @@
                         <p><strong>扶贫服务：</strong>{{d.abilityname}}</p>
                         <p><strong>扶贫小组：</strong>{{d.teamname}}</p>
                         <p><strong>创建时间：</strong>{{d.time}}</p>
-                        <p>
-                            <strong>状态：</strong>
-                            <span style="color:orange;" ng-if="d.state==0">进行中</span>
-                            <span style="color:green;" ng-if="d.state==1">已完成</span>
-                        </p>
+                        <p ng-if="d.state==1"><strong>成果反馈：</strong>{{d.result}}</p>
+                        <p ng-if="d.state==1"><strong>意见建议：</strong>{{d.suggest}}</p>
                         <table class="am-table">
                             <tr>
                                 <th>ID</th>
@@ -77,7 +77,7 @@
 <div class="am-modal am-modal-no-btn" tabindex="-1" id="modal">
     <div class="am-modal-dialog">
         <div class="am-modal-hd">
-            小组
+            电商扶贫
             <a class="am-close am-close-spin" data-am-modal-close>&times;</a>
         </div>
         <div class="am-modal-bd" style="text-align:left;">
@@ -152,7 +152,7 @@
                     <label>成果反馈</label>
                     <textarea ng-model="model.suggest"></textarea>
                 </div>
-                <button class="am-btn am-btn-primary am-btn-block" ng-click="setProfit()">保存</button>
+                <button class="am-btn am-btn-primary am-btn-block" ng-click="finish()">保存</button>
             </form>
 
         </div>
