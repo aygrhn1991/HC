@@ -49,6 +49,9 @@ app.controller('IndexCtrl', function ($http, $rootScope) {
             }
         }
     });
+    $http.post('/common/getsetting').success(function (data) {
+        $rootScope.setting = data;
+    });
     $rootScope.getMessage = function () {
         $http.post('/home/Message_GetList').success(function (data) {
             if (data.success) {
@@ -523,4 +526,34 @@ app.controller('MyQuestionCtrl', function ($scope, $http) {
         $scope.get();
     };
     $scope.reset();
+});
+
+app.controller('NewIndexCtrl', function ($http, $scope) {
+    $scope.user = window.Common.getUser();
+    $http.post('/common/getsetting').success(function (data) {
+        $scope.setting = data;
+    });
+    $scope.goto = function (e, f) {
+        var url = e + '/home/login?id=' + $scope.user.id + '&url=' + escape(f);
+        window.location.href = url;
+    };
+    $http.post('/home/getNewIndexData').success(function (data) {
+        $scope.data = data.data;
+    });
+});
+app.controller('NewMyCtrl', function ($http, $scope) {
+    $scope.user = window.Common.getUser();
+    $http.post('/common/getsetting').success(function (data) {
+        $scope.setting = data;
+    });
+    $scope.goto = function (e, f) {
+        var url = e + '/home/login?id=' + $scope.user.id + '&url=' + escape(f);
+        window.location.href = url;
+    };
+    $http.post('/home/My_Get').success(function (data) {
+        layer.close($scope.loading);
+        if (data.success) {
+            $scope.data = data.data[0];
+        }
+    });
 });

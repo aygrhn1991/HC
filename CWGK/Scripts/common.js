@@ -1,10 +1,10 @@
-﻿Common = {
+﻿window.Common = {
     getAdmin: function () {
-        var cookie = Util.getCookie('admin');
+        var cookie = window.Util.getCookie('admin');
         return JSON.parse(cookie);
     },
     getUser: function () {
-        var cookie = Util.getCookie('user');
-        return JSON.parse(cookie);
+        var cookie = window.Util.getCookie('user');
+        return JSON.parse(unescape(cookie));
     }
 };

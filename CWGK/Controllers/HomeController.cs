@@ -15,19 +15,64 @@ namespace CWGK.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Login(int id)
+        public ActionResult Login(int id, string url)
         {
             string sql = string.Format("select * from t_user t where t.id={0}", id);
             DataTable dt = DbHelperMySQL.Query(sql).Tables[0];
             var data = dt.ConvertToModel<t_user>();
             HttpCookie cookie = new HttpCookie("user", HttpUtility.UrlEncode(JsonConvert.SerializeObject(data[0])));
             Response.SetCookie(cookie);
-            return RedirectToAction("Index");
+            return Redirect(HttpUtility.UrlDecode(url));
         }
         public ActionResult Index()
         {
             return View();
         }
+        #region 公共首页
+        public ActionResult NewLogin(int id)
+        {
+            string sql = string.Format("select * from t_user t where t.id={0}", id);
+            DataTable dt = DbHelperMySQL.Query(sql).Tables[0];
+            var data = dt.ConvertToModel<t_user>();
+            HttpCookie cookie = new HttpCookie("user", HttpUtility.UrlEncode(JsonConvert.SerializeObject(data[0])));
+            Response.SetCookie(cookie);
+            return RedirectToAction("NewIndex");
+        }
+        public ActionResult NewIndex()
+        {
+            return View();
+        }
+        public ActionResult getNewIndexData()
+        {
+            Dictionary<string, Object> result = new Dictionary<string, object>();
+            //秸秆焚烧数据
+            //智慧农业数据
+            //村务公开数据
+            //////新闻数量
+            Dictionary<string, Object> cwgk = new Dictionary<string, object>();
+            string sql = "select count(*) from t_news t where t.del=0 and t.state=1";
+            int count = Convert.ToInt32(DbHelperMySQL.GetSingle(sql));
+            cwgk.Add("news_count", count);
+            //////消息数量
+            List<t_user_message> messages = new List<t_user_message>();
+            sql = string.Format("select count(*) from t_user_xzqh t where t.userid={0} and t.newcount>0", Common.getUser().id);
+            count = Convert.ToInt32(DbHelperMySQL.GetSingle(sql));
+            sql = string.Format("select count(*) from t_news_talk t where t.userid={0} and t.read=0", Common.getUser().id);
+            count += Convert.ToInt32(DbHelperMySQL.GetSingle(sql));
+            cwgk.Add("message_count", count);
+            result.Add("cwgk", cwgk);
+            //电商扶贫数据
+            return Json(Result.Success(1, result), JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult SuYuan()
+        {
+            return View();
+        }
+        public ActionResult NewMy()
+        {
+            return View();
+        }
+        #endregion
 
         #region 新闻分类
         public ActionResult NewsType()

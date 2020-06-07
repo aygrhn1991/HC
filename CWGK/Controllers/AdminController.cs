@@ -9,22 +9,21 @@ using CWGK.Models.model;
 
 namespace CWGK.Controllers
 {
-    [AdminAuthorize]
+    
     public class AdminController : Controller
     {
+        [AdminAuthorize]
         public ActionResult Index()
         {
             return View();
         }
 
         #region 登录
-        [AllowAnonymous]
         [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
-        [AllowAnonymous]
         [HttpPost]
         public ActionResult Login(string account, string password)
         {

@@ -17,14 +17,14 @@ namespace DSFP.Controllers
         {
             return View();
         }
-        public ActionResult Login(int id)
+        public ActionResult Login(int id, string url)
         {
             string sql = string.Format("select * from t_user t where t.id={0}", id);
             DataTable dt = DbHelperMySQL.Query(sql).Tables[0];
             var data = dt.ConvertToModel<t_user>();
             HttpCookie cookie = new HttpCookie("user", HttpUtility.UrlEncode(JsonConvert.SerializeObject(data[0])));
             Response.SetCookie(cookie);
-            return RedirectToAction("Index");
+            return Redirect(HttpUtility.UrlDecode(url));
         }
         #region 我的
         public ActionResult My()

@@ -47,6 +47,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ivony.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ivony.Core.1.1.1\lib\Ivony.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Ivony.Html, Version=3.0.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Jumony.Core.3.0.18\lib\Ivony.Html.dll</HintPath>
+    </Reference>
+    <Reference Include="Ivony.Html.Parser, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Jumony.Core.3.0.18\lib\Ivony.Html.Parser.dll</HintPath>
+    </Reference>
+    <Reference Include="Ivony.Html.Parser.Regulars, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Jumony.Core.3.0.18\lib\Ivony.Html.Parser.Regulars.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -116,11 +128,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="api_cwgk.asmx.cs">
+      <DependentUpon>api_cwgk.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\DataVController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -150,6 +167,17 @@
     <Compile Include="Models\sqlhelper\SQLHelper.cs" />
     <Compile Include="Models\Util.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Spider\spiders\bjgs.cs" />
+    <Compile Include="Spider\spiders\bjgs_model_callback.cs" />
+    <Compile Include="Spider\spiders\bjgs_model_columns.cs" />
+    <Compile Include="Spider\spiders\bjgs_model_data.cs" />
+    <Compile Include="Spider\spiders\bjtj.cs" />
+    <Compile Include="Spider\spiders\bjtj_model_callback.cs" />
+    <Compile Include="Spider\spiders\bjtj_model_columns.cs" />
+    <Compile Include="Spider\spiders\bjtj_model_data.cs" />
+    <Compile Include="Spider\spiders\bslc.cs" />
+    <Compile Include="Spider\spiders\zwgk.cs" />
+    <Compile Include="Spider\util\Util.cs" />
     <Compile Include="ueditor\net\handler\Config.cs" />
     <Compile Include="ueditor\net\handler\ConfigHandler.cs" />
     <Compile Include="ueditor\net\handler\CrawlerHandler.cs" />
@@ -161,6 +189,13 @@
     <Compile Include="UI\plugins\fullavatareditor\asp.net\c#\Upload.aspx.cs">
       <DependentUpon>Upload.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -209,12 +244,14 @@
     <Content Include="AmazeUI\sidebar.html" />
     <Content Include="AmazeUI\widget.basic.html" />
     <Content Include="AmazeUI\widget.html" />
-    <Content Include="App_Data\cwgk.sql" />
+    <Content Include="api_cwgk.asmx" />
     <Content Include="Content\cwgk_home.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\cwgk_admin.css" />
+    <Content Include="Image\datav.png" />
     <Content Include="Image\head.jpg" />
+    <Content Include="Image\suyuan-app.jpg" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\common.js" />
@@ -1198,7 +1235,9 @@
     <Content Include="UI\typography.html" />
     <Content Include="UI\webim.html" />
     <Content Include="UI\widgets.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1242,8 +1281,10 @@
     <Content Include="layui\font\iconfont.woff2" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\NewsType.cshtml" />
+    <Content Include="WebForm1.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="ueditor\net\upload\" />
     <Folder Include="Upload\" />
     <Folder Include="Views\Common\" />
@@ -1281,6 +1322,10 @@
     <Content Include="Views\Home\MyQuestion.cshtml" />
     <Content Include="Views\Home\NewsDetailForDataV.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <Content Include="Views\Home\NewIndex.cshtml" />
+    <Content Include="Views\Home\NewMy.cshtml" />
+    <Content Include="Views\DataV\Index.cshtml" />
+    <Content Include="Views\Home\SuYuan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

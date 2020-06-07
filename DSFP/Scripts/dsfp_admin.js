@@ -528,7 +528,8 @@ app.controller('PoorCtrl', function ($scope, $http) {
         id: null,
         name: null,
         xzqhcode: null,
-        population: null
+        population: null,
+        square: null
     };
     $scope.reset = function () {
         $scope.loading = null;
@@ -768,7 +769,7 @@ app.controller('ActivityCtrl', function ($scope, $http) {
                 $scope.model.time = value;
             }
         });
-        setTimeout(() => {
+        setTimeout(function () {
             $scope.transfer = layui.transfer.render({
                 id: 'transfer',
                 elem: '#transfer',

@@ -1,6 +1,8 @@
 ﻿using DSFP.Models;
 using DSFP.Models.model;
 using Maticsoft.DBUtility;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Web.Mvc;
 
@@ -8,6 +10,21 @@ namespace DSFP.Controllers
 {
     public class CommonController : Controller
     {
+        public ActionResult GetSetting()
+        {
+            string app = ConfigurationManager.AppSettings["app"];
+            string jgfs = ConfigurationManager.AppSettings["jgfs"];
+            string zhny = ConfigurationManager.AppSettings["zhny"];
+            string cwgk = ConfigurationManager.AppSettings["cwgk"];
+            string dsfp = ConfigurationManager.AppSettings["dsfp"];
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            dic.Add("app", app);
+            dic.Add("jgfs", jgfs);
+            dic.Add("zhny", zhny);
+            dic.Add("cwgk", cwgk);
+            dic.Add("dsfp", dsfp);
+            return Json(dic, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult GetTeamAbility()
         {
             string sql = "select * from f_team_ability t where t.del=0 order by t.id";

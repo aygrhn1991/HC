@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewBag.Title = "NewIndex";
+    Layout = "~/Views/Shared/_Layout_Home.cshtml";
+}
+<style>
+    .block {
+        border: 1px solid #0e90d2;
+        border-radius: 5px;
+        margin: 20px;
+        padding: 10px;
+        color: #0e90d2;
+    }
+
+        .block > div {
+            position: relative;
+            display: inline-block;
+            margin: 10px 2%;
+            width: 45%;
+            line-height: 30px;
+            text-align: center;
+            border: .5px dashed #0e90d2;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+    .index-badge {
+        position: absolute;
+        top: -5px;
+        right: 0px;
+        background: red;
+        color: #fff;
+        border-radius: 20px;
+        padding: 0 3px;
+        font-size: 12px;
+        min-width: 16px;
+        line-height: initial;
+    }
+</style>
+<div ng-app="app" ng-controller="NewIndexCtrl">
+    <header class="am-header am-header-default">
+        <h1 class="am-header-title">
+            <a>桦川县村务公开专属网格资源平台</a>
+        </h1>
+    </header>
+    <div>
+        <div class="block">
+            <h3>秸秆焚烧</h3>
+            <div ng-click="goto(setting.jgfs,'/sj/index#/CamList')">
+                火情告警
+                <span class="index-badge">18</span>
+            </div>
+            <div ng-click="goto(setting.jgfs,'/sj/index#/Sbbd')">设备绑定</div>
+        </div>
+        <div class="block">
+            <h3>智慧农业</h3>
+            <div ng-click="goto(setting.zhny,'/sj/index#/CamList')">数据采集</div>
+            <div ng-click="goto(setting.zhny,'/sj/index#/Sbbd')">采集点订阅</div>
+        </div>
+        <div class="block">
+            <h3>村务公开</h3>
+            <div ng-click="goto(setting.cwgk,'/home/index#/newstype')">
+                新闻发布
+                <span class="index-badge">{{data.cwgk.news_count}}</span>
+            </div>
+            <div ng-click="goto(setting.cwgk,'/home/index#/message')">
+                消息中心
+                <span class="index-badge">{{data.cwgk.message_count}}</span>
+            </div>
+            <div ng-click="goto(setting.cwgk,'/home/index#/myrank/1')">平台活跃度</div>
+            <div ng-click="goto(setting.cwgk,'/home/index#/myxzqh')">村镇订阅</div>
+            <div ng-click="goto(setting.cwgk,'/home/index#/myquestion')">提问中心</div>
+        </div>
+        <div class="block">
+            <h3>电商扶贫</h3>
+            <div ng-click="goto(setting.dsfp,'/home/index#/sign')">签约扶贫</div>
+            <div ng-click="goto(setting.dsfp,'/home/index#/activity')">电商扶贫</div>
+            <div ng-click="goto(setting.dsfp,'/home/index#/myteam')">扶贫小组</div>
+            <div ng-click="goto(setting.dsfp,'/home/index#/myxzqh')">贫困村镇</div>
+            <div ng-click="goto(setting.dsfp,'/home/index#/mypoor')">扶贫对象</div>
+        </div>
+        <div class="block">
+            <h3>溯源</h3>
+            <div><a href="/Home/SuYuan">溯源监管</a></div>
+        </div>
+    </div>
+    <div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default">
+        <ul class="am-navbar-nav am-cf am-avg-sm-4">
+            <li>
+                <a href="{{setting.app}}">
+                    <span class="am-icon-mobile"></span>
+                    <span class="am-navbar-label">APP</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{setting.cwgk+'/home/newindex'}}">
+                    <span class="am-icon-home"></span>
+                    <span class="am-navbar-label">首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{setting.cwgk+'/home/newmy'}}">
+                    <span class="am-icon-user"></span>
+                    <span class="am-navbar-label">我的</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+

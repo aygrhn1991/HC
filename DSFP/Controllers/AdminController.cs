@@ -9,22 +9,21 @@ using System.Web.Mvc;
 
 namespace DSFP.Controllers
 {
-    [AdminAuthorize]
+
     public class AdminController : Controller
     {
+        [AdminAuthorize]
         public ActionResult Index()
         {
             return View();
         }
 
-        #region 登录
-        [AllowAnonymous]
+        #region 登录        
         [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
-        [AllowAnonymous]
         [HttpPost]
         public ActionResult Login(string account, string password)
         {
@@ -260,13 +259,13 @@ namespace DSFP.Controllers
         }
         public ActionResult Poor_Add(f_poor model)
         {
-            string sql = string.Format("insert into f_poor(name,xzqhcode,population,del) values('{0}','{1}',{2},0)", model.name, model.xzqhcode, model.population);
+            string sql = string.Format("insert into f_poor(name,xzqhcode,population,square,del) values('{0}','{1}',{2},0)", model.name, model.xzqhcode, model.population, model.square);
             int count = DbHelperMySQL.ExecuteSql(sql);
             return Json(Result.AutoResult(count), JsonRequestBehavior.AllowGet);
         }
         public ActionResult Poor_Edit(f_poor model)
         {
-            string sql = string.Format("update f_poor t set name='{0}',xzqhcode='{1}',population={2} where t.id={3}", model.name, model.xzqhcode, model.population, model.id);
+            string sql = string.Format("update f_poor t set name='{0}',xzqhcode='{1}',population={2},square={3} where t.id={4}", model.name, model.xzqhcode, model.population, model.square, model.id);
             int count = DbHelperMySQL.ExecuteSql(sql);
             return Json(Result.AutoResult(count), JsonRequestBehavior.AllowGet);
         }

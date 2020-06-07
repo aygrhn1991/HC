@@ -118,15 +118,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AdminAuthorizeAttribute.cs" />
-    <Compile Include="Models\ctrladmin.cs" />
     <Compile Include="Models\Common.cs" />
-    <Compile Include="Models\ctrlcommon.cs" />
-    <Compile Include="Models\ctrlhome.cs" />
     <Compile Include="Models\ModelConvert.cs" />
     <Compile Include="Models\model\f_activity.cs" />
     <Compile Include="Models\model\f_activity_poor.cs" />
@@ -1212,6 +1210,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="ueditor\net\upload\" />
     <Folder Include="Views\Common\" />
+    <Folder Include="Views\Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AmazeUI\assets\fonts\fontawesome-webfont.eot" />

@@ -40,6 +40,7 @@
                         <th>姓名</th>
                         <th>村镇</th>
                         <th>家庭人口</th>
+                        <th>土地面积</th>
                         <th>操作</th>
                     </tr>
                 </thead>
@@ -49,6 +50,7 @@
                         <td>{{d.name}}</td>
                         <td>{{d.xzqhname}}</td>
                         <td>{{d.population}}</td>
+                        <td>{{d.square}}</td>
                         <td>
                             <i class="fa fa-edit icon-table icon-edit2" ng-click="edit_show(d)" title="修改"></i>
                             <i class="fa fa-trash icon-table icon-delete" ng-click="delete(d)" title="删除"></i>
@@ -83,6 +85,12 @@
                             <label class="col-sm-2 control-label">家庭人口</label>
                             <div class="col-sm-10">
                                 <input type="number" class="form-control" ng-model="model.population">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">土地面积</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" ng-model="model.square">
                             </div>
                         </div>
                     </form>

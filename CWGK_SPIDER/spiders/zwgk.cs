@@ -64,12 +64,15 @@ namespace CWGK_SPIDER.spiders
                                string author = source.Find("#con_four_" + i).Find(".li1").Last().InnerText().Replace("发布机构：", "");
                                string time = source.Find("#con_four_" + i).Find(".li2").Last().InnerText().Replace("发文日期：", "");
                                string title = source.Find("#con_four_" + i).Find(".infoname").First().InnerText().Replace("名称：", "");
+                               //判断第一条是否存在，如果存在，则说明新闻一直未更新，不需要继续下去了
+                               //可以使用下边逻辑，continue换成return
                                //判断是否存在
                                string sql = string.Format("select count(*) from t_spider_zwgk t where t.id={0}", id);
                                int count = Convert.ToInt32(DbHelperMySQL.GetSingle(sql));
                                if (count > 0)
                                {
-                                   continue;
+                                   //continue;
+                                   return;
                                }
                                //不存在，插入数据库
                                sql = string.Format("insert into t_spider_zwgk(id,title,time,author) values({0},'{1}','{2}','{3}')", id, title.Replace('\'', '"'), time, author);

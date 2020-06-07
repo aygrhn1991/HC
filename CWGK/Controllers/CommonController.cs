@@ -3,6 +3,7 @@ using CWGK.Models.model;
 using Maticsoft.DBUtility;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Web.Mvc;
@@ -11,6 +12,21 @@ namespace CWGK.Controllers
 {
     public class CommonController : Controller
     {
+        public ActionResult GetSetting()
+        {
+            string app = ConfigurationManager.AppSettings["app"];
+            string jgfs = ConfigurationManager.AppSettings["jgfs"];
+            string zhny = ConfigurationManager.AppSettings["zhny"];
+            string cwgk = ConfigurationManager.AppSettings["cwgk"];
+            string dsfp = ConfigurationManager.AppSettings["dsfp"];
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            dic.Add("app", app);
+            dic.Add("jgfs", jgfs);
+            dic.Add("zhny", zhny);
+            dic.Add("cwgk", cwgk);
+            dic.Add("dsfp", dsfp);
+            return Json(dic, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult GetXzqhByAdmin()
         {
             t_admin admin = Common.getAdmin();

@@ -13,12 +13,23 @@ namespace DataImport
     {
         static void Main(string[] args)
         {
+            
+
+
+
+
+            //var date = DateTime.Now;
+            //var start_date = date.AddYears(-1);
+
+            //for(int i = 0; i < 12; i++)
+            //{
+            //    string dateStr = start_date.AddMonths(i+1).ToString("yyyy-MM");
+            //    Debug.WriteLine(dateStr);
+            //}
+
+
+
             //excel2db("E:/abc.xls");
-            string url1 = "http://www.weather.com.cn/data/sk/101050404.html";
-            string url2 = "http://www.weather.com.cn/data/cityinfo/101050404.html";
-            string url3 = "http://m.weather.com.cn/data/101010100.html";
-            string result = getHtmlStr(url1, Encoding.UTF8);
-            Debug.WriteLine(result);
 
             Console.ReadKey();
         }

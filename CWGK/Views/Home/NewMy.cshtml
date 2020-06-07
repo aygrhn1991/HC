@@ -1,0 +1,188 @@
+﻿
+@{
+    ViewBag.Title = "NewMy";
+    Layout = "~/Views/Shared/_Layout_Home.cshtml";
+}
+
+
+<div ng-app="app" ng-controller="NewMyCtrl">
+    <header class="am-header am-header-default">
+        <h1 class="am-header-title">
+            <a>个人中心</a>
+        </h1>
+    </header>
+    <div class="am-intro am-cf am-intro-default">
+        <div class="am-g am-intro-bd" style="border-bottom:1px solid #eee;">
+            <div class="am-intro-left am-u-sm-3"><img src="~/Image/head.jpg" /></div>
+            <div class="am-intro-right am-u-sm-9">
+                <div style="font-size:18px;" ng-bind="data.name"></div>
+                <div ng-bind="data.phone"></div>
+            </div>
+        </div>
+    </div>
+    <div class="am-titlebar am-titlebar-default">
+        <h2 class="am-titlebar-title">秸秆焚烧</h2>
+    </div>
+    <div class="am-g">
+        <div class="am-u-sm-4 mybox">
+            <a ng-click="goto(setting.jgfs,'/sj/index#/CamList')">
+                <i class="am-icon-question-circle"></i>
+                <div>摄像头管理</div>
+            </a>
+        </div>
+        <div class="am-u-sm-4 mybox">
+            <a ng-click="goto(setting.jgfs,'/sj/index#/Sbbd')">
+                <i class="am-icon-question-circle"></i>
+                <div>设备绑定</div>
+            </a>
+        </div>
+        <div class="am-u-sm-4 mybox"></div>
+    </div>
+    <div class="am-titlebar am-titlebar-default">
+        <h2 class="am-titlebar-title">智慧农业</h2>
+    </div>
+    <div class="am-g">
+        <div class="am-u-sm-4 mybox">
+            <a ng-click="goto(setting.zhny,'/sj/index#/CamList')">
+                <i class="am-icon-question-circle"></i>
+                <div>采集点管理</div>
+            </a>
+        </div>
+        <div class="am-u-sm-4 mybox">
+            <a ng-click="goto(setting.zhny,'/sj/index#/Sbbd')">
+                <i class="am-icon-question-circle"></i>
+                <div>采集点订阅</div>
+            </a>
+        </div>
+        <div class="am-u-sm-4 mybox"></div>
+    </div>
+    <div class="am-titlebar am-titlebar-default">
+        <h2 class="am-titlebar-title">村务公开</h2>
+    </div>
+    <div class="am-g">
+        <div class="am-u-sm-4 mybox">
+            <a ng-click="goto(setting.cwgk,'/home/index#/newstype')">
+                <i class="am-icon-question-circle"></i>
+                <div>新闻列表</div>
+            </a>
+        </div>
+        <div class="am-u-sm-4 mybox">
+            <a ng-click="goto(setting.cwgk,'/home/index#/message')">
+                <i class="am-icon-question-circle"></i>
+                <div>消息</div>
+            </a>
+        </div>
+        <div class="am-u-sm-4 mybox">
+            <a ng-click="goto(setting.cwgk,'/home/index#/myrank/1')">
+                <i class="am-icon-question-circle"></i>
+                <div>浏览量排行</div>
+            </a>
+        </div>
+        <div class="am-u-sm-4 mybox">
+            <a ng-click="goto(setting.cwgk,'/home/index#/myrank/2')">
+                <i class="am-icon-question-circle"></i>
+                <div>提问数排行</div>
+            </a>
+        </div>
+        <div class="am-u-sm-4 mybox">
+            <a ng-click="goto(setting.cwgk,'/home/index#/myrank/3')">
+                <i class="am-icon-question-circle"></i>
+                <div>浏览时长排行</div>
+            </a>
+        </div>
+        <div class="am-u-sm-4 mybox">
+            <a ng-click="goto(setting.cwgk,'/home/index#/myxzqh')">
+                <i class="am-icon-question-circle"></i>
+                <div>村镇订阅</div>
+            </a>
+        </div>
+        <div class="am-u-sm-4 mybox">
+            <a ng-click="goto(setting.cwgk,'/home/index#/myquestion')">
+                <i class="am-icon-question-circle"></i>
+                <div>我的提问</div>
+            </a>
+        </div>
+        <div class="am-u-sm-4 mybox"></div>
+    </div>
+    <div class="am-titlebar am-titlebar-default">
+        <h2 class="am-titlebar-title">电商扶贫</h2>
+    </div>
+    <div class="am-g">
+        <div class="am-u-sm-4 mybox">
+            <a  ng-click="goto(setting.dsfp,'/home/index#/activity')">
+                <i class="am-icon-question-circle"></i>
+                <div>电商扶贫</div>
+            </a>
+        </div>
+        <div class="am-u-sm-4 mybox">
+            <a ng-click="goto(setting.dsfp,'/home/index#/sign')">
+                <i class="am-icon-question-circle"></i>
+                <div>签约扶贫</div>
+            </a>
+        </div>
+        <div class="am-u-sm-4 mybox">
+            <a ng-click="goto(setting.dsfp,'/home/index#/myteam')">
+                <i class="am-icon-question-circle"></i>
+                <div>我的小组</div>
+            </a>
+        </div>
+        <div class="am-u-sm-4 mybox">
+            <a ng-click="goto(setting.dsfp,'/home/index#/myxzqh')">
+                <i class="am-icon-question-circle"></i>
+                <div>贫困村</div>
+            </a>
+        </div>
+        <div class="am-u-sm-4 mybox">
+            <a ng-click="goto(setting.dsfp,'/home/index#/mypoor')">
+                <i class="am-icon-question-circle"></i>
+                <div>扶贫对象</div>
+            </a>
+        </div>
+        <div class="am-u-sm-4 mybox"></div>
+    </div>
+
+
+    @*<div>秸秆焚烧</div>
+    <a ng-click="goto(setting.jgfs,'/sj/index#/CamList')">摄像头管理</a>
+    <a ng-click="goto(setting.jgfs,'/sj/index#/Sbbd')">设备绑定</a>
+    <div>智慧农业</div>
+    <a ng-click="goto(setting.zhny,'/sj/index#/CamList')">采集点管理</a>
+    <a ng-click="goto(setting.zhny,'/sj/index#/Sbbd')">采集点订阅</a>
+    <div>村务公开</div>
+    <a ng-click="goto(setting.cwgk,'/home/index#/newstype')">新闻列表</a>
+    <a ng-click="goto(setting.cwgk,'/home/index#/message')">消息</a>
+    <a ng-click="goto(setting.cwgk,'/home/index#/myrank/1')">浏览量排行</a>
+    <a ng-click="goto(setting.cwgk,'/home/index#/myrank/2')">提问数排行</a>
+    <a ng-click="goto(setting.cwgk,'/home/index#/myrank/3')">浏览时长排行</a>
+    <a ng-click="goto(setting.cwgk,'/home/index#/myxzqh')">村镇绑定</a>
+    <a ng-click="goto(setting.cwgk,'/home/index#/myquestion')">我的提问</a>
+    <div>电商扶贫</div>
+    <a ng-click="goto(setting.dsfp,'/home/index#/myteam')">我的小组</a>
+    <a ng-click="goto(setting.dsfp,'/home/index#/activity')">电商扶贫</a>
+    <a ng-click="goto(setting.dsfp,'/home/index#/sign')">签约扶贫</a>
+    <a ng-click="goto(setting.dsfp,'/home/index#/myxzqh')">贫困村</a>
+    <a ng-click="goto(setting.dsfp,'/home/index#/mypoor')">扶贫对象</a>*@
+    <div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default">
+        <ul class="am-navbar-nav am-cf am-avg-sm-4">
+            <li>
+                <a href="{{setting.app}}">
+                    <span class="am-icon-mobile"></span>
+                    <span class="am-navbar-label">APP</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{setting.cwgk+'/home/newindex'}}">
+                    <span class="am-icon-home"></span>
+                    <span class="am-navbar-label">首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{setting.cwgk+'/home/newmy'}}">
+                    <span class="am-icon-user"></span>
+                    <span class="am-navbar-label">我的</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
